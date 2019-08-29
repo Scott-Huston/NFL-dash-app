@@ -12,6 +12,12 @@ gunicorn = "*"
 plotly = "*"
 jupyter = "*"
 pandas = "*"
+scikit-learn = "*"
+category-encoders = "*"
+xgboost = "*"
+dash-daq = "*"
+matplotlib = "*"
+shap = "*"
 
 [requires]
 python_version = "3.7"
