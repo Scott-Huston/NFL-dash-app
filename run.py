@@ -26,16 +26,17 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 """
 
 navbar = dbc.NavbarSimple(
-    brand='Play Predictor',
+    brand='Robo Romo',
+    brand_style={'color': '#FFFFFF'},
     brand_href='/', 
     children=[
-        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link', style={'color': '#FFFFFF'})), 
+        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link', style={'color': '#FFFFFF'})), 
+        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link', style={'color': '#FFFFFF'})), 
     ],
     sticky='top',
-    color='light', 
-    light=True, 
+    color='#013F8E', 
+    light=True,
     dark=False
 )
 
@@ -44,11 +45,11 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Your Name', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
+                    html.Span('Created by Scott Huston', className='mr-2'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:scottphuston@gmail.com'),
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/Scott-Huston/NFL-dash-app'),
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/scott-huston-616512126/'),
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/genuine_doubt'),
                 ], 
                 className='lead'
             )
