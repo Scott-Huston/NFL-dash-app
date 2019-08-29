@@ -23,34 +23,36 @@ should take up a third of the width. Since we don't specify behaviour on
 smaller size screens Bootstrap will allow the rows to wrap so as not to squash 
 the content.
 """
+# column0 = dbc.Col(
+#     [
+#     dcc.Markdown("""filler text"""),
+#     ]
+#  md = 4,   
+# )
 
 column1 = dbc.Col(
     [
         dcc.Markdown(
             """
         
-            ## Value Proposition
+            ## Predict whether NFL teams will run or pass!
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
-
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            🏈 Robo Romo is a web app that predicts whether the next play in a game will be a run or pass based on the game situation. 
+            
+            Can you predict your team's plays better than Robo Romo?
 
             """
         ),
-        dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Predict', color='primary'), href='/predictions')
     ],
     md=4,
 )
 
-gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
+
 
 column2 = dbc.Col(
     [
-        dcc.Graph(figure=fig),
+        html.Img(src='assets/Mcvay_playcall.jpeg', className='img-fluid')
     ]
 )
 
