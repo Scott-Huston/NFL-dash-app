@@ -18,7 +18,6 @@ column1 = dbc.Col(
         html.Div(id='prediction-content', className='mb-3', style={'textAlign': 'center', 'font-weight': 'bold'}),
         html.Div(id='prediction-image') 
     ],
-    width = 4
 )
 
 column2 = dbc.Col(    
@@ -95,8 +94,7 @@ column2 = dbc.Col(
         )                     
 #         html.Div(id='slider-output-container'),
     ],        
-    # setting column width        
-    width = 4            
+    # setting column width                  
 )
 
 column3 = dbc.Col(
@@ -169,8 +167,7 @@ column3 = dbc.Col(
         
         
     ],
-    
-    width = 4
+   
     
 )
 
@@ -279,15 +276,13 @@ title1 = dbc.Col(
     [
     html.H2('Play Prediction', className='mb-4', style={'textAlign': 'center'}), 
     ],
-    width = 4
 )
 title2 = dbc.Col(
     [
     html.H2('Game Situation', className='mb-6'), 
     ],
-    width = 4
 )
-title3 = dbc.Col(width = 4)
+title3 = dbc.Col()
 titles = dbc.Row([title1,title2,title3])
 content = dbc.Row([column1, column2, column3])
 layout = dbc.Col([titles, content])
