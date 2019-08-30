@@ -1,6 +1,7 @@
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
+import dash_daq as daq
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
@@ -13,10 +14,18 @@ from joblib import load
 pipeline = load('assets/pipeline.joblib')
 
 column1 = dbc.Col(
-    [dcc.Markdown('## Game Situation', className='mb-5'),
+     [   
+        html.Div(id='prediction-content', className='mb-3', style={'textAlign': 'center', 'font-weight': 'bold'}),
+        html.Div(id='prediction-image') 
+    ],
+    width = 4
+)
+
+column2 = dbc.Col(    
+    [
      
      # Shotgun checkbox
-        dcc.Markdown('###### Is the offense in shotgun formation?'),
+        dcc.Markdown('##### Is the offense in shotgun formation?'),
         dcc.Dropdown(
             id='shotgun', 
             options= [
@@ -28,7 +37,7 @@ column1 = dbc.Col(
             value=0
         ),
     # Down dropdown menu
-        dcc.Markdown('###### Down'), 
+        dcc.Markdown('##### Down'), 
         dcc.Dropdown(
             id='down', 
             options= [
@@ -41,7 +50,7 @@ column1 = dbc.Col(
             value=1
         ), 
      # Yards to go field
-        dcc.Markdown('###### Yards to 1st down'), 
+        dcc.Markdown('##### Yards to 1st down'), 
         dcc.Input(
             id = 'ydstogo',
             type='number',
@@ -52,8 +61,47 @@ column1 = dbc.Col(
             className = 'mb-2',
             debounce = True
         ),
-     # Quarter dropdown menu
-        dcc.Markdown('###### Quarter'), 
+     # Minutes remaining field
+        dcc.Markdown('##### Minutes remaining in quarter'), 
+        dcc.Input(
+            id = 'minutes',
+            type='number',
+            min = 0,
+            max = 15,
+            value=14.5,
+            className = 'mb-2',
+            debounce = True
+        ),
+                       
+     # Yardline slider
+        html.Div(  
+            [
+            dcc.Markdown('##### Yards to touchdown'), 
+            daq.Slider(              
+                id='yardline_100', 
+                min=1, 
+                max=99, 
+                step=1, 
+                value=75, 
+                marks={n: str(n) for n in range(10,91,10)}, 
+                className='mb-3',
+                handleLabel={
+                    'label': 'Current',
+                    'showCurrentValue': True
+                    },
+                ),
+            ],
+            style={'marginTop': 10, 'marginBottom': 10},            
+        )                     
+#         html.Div(id='slider-output-container'),
+    ],        
+    # setting column width        
+    width = 4            
+)
+
+column3 = dbc.Col(
+     [    # Quarter dropdown menu
+        dcc.Markdown('##### Quarter'), 
         dcc.Dropdown(
             id='qtr', 
             options= [
@@ -66,34 +114,9 @@ column1 = dbc.Col(
             className = 'mb-2',
             value=1
         ),
-     # Minutes remaining field
-        dcc.Markdown('###### Minutes remaining in quarter'), 
-        dcc.Input(
-            id = 'minutes',
-            type='number',
-            min = 0,
-            max = 15,
-            value=14.5,
-            className = 'mb-2',
-            debounce = True
-        ),
-     # Yardline slider
+      # Offensive score field
          html.Div([
-            dcc.Markdown('###### Yards from opposing end zone'), 
-            dcc.Slider(
-                id='yardline_100', 
-                min=1, 
-                max=99, 
-                step=1, 
-                value=75, 
-                marks={n: str(n) for n in range(10,91,10)}, 
-                className='mb-3', 
-            ), 
-         html.Div(id='slider-output-container')
-        ]),
-     # Offensive score field
-         html.Div([
-            dcc.Markdown('###### Score of offensive team'), 
+            dcc.Markdown('##### Score of offensive team'), 
             dcc.Input(
                 id = 'posteam_score',
                 type='number',
@@ -107,7 +130,7 @@ column1 = dbc.Col(
          style={'marginTop': 10, 'marginBottom': 10}
          ),   
      # Defensive score field
-        dcc.Markdown('###### Score of defensive team'), 
+        dcc.Markdown('##### Score of defensive team'), 
         dcc.Input(
             id = 'defteam_score',
             type='number',
@@ -118,7 +141,7 @@ column1 = dbc.Col(
             debounce = True
         ),
      # Offensive team timeouts remaining menu
-        dcc.Markdown('###### Offensive team timeouts remaining'), 
+        dcc.Markdown('##### Offensive team timeouts remaining'), 
         dcc.Dropdown(
             id='posteam_timeouts_remaining', 
             options= [
@@ -131,7 +154,7 @@ column1 = dbc.Col(
             value=3
         ),
       # Defensive team timeouts remaining menu
-        dcc.Markdown('###### Defensive team timeouts remaining'), 
+        dcc.Markdown('##### Defensive team timeouts remaining'), 
         dcc.Dropdown(
             id='defteam_timeouts_remaining', 
             options= [
@@ -142,21 +165,13 @@ column1 = dbc.Col(
             ],
             className = 'mb-2',
             value=3
-        ),
+        )
         
-     
-        ],
-    md=4,
-)
-
-column2 = dbc.Col(
-    [
         
-        html.H2('Play Prediction', className='mb-5'), 
-        html.Div(id='prediction-content', className='mb-2'),
-        html.Div(id='prediction-image')
-        
-    ]
+    ],
+    
+    width = 4
+    
 )
 
 @app.callback(
@@ -250,11 +265,6 @@ def predict_image(shotgun, down, ydstogo, qtr, minutes,
         return html.Img(src='assets/pass_image.jpeg',className='img-fluid', style = {'height': '400px'})
     else:
         return html.Img(src='assets/run_image.jpeg',className='img-fluid', style = {'height': '400px'})
-   
-        
-    
-    
-    
 
 
 @app.callback(
@@ -265,5 +275,19 @@ def update_output(yardline_100):
         return f'{yardline_100} yards from the end zone'
     else:
         return f'{yardline_100} yard from the end zone'
-
-layout = dbc.Row([column1, column2])
+title1 = dbc.Col(
+    [
+    html.H2('Play Prediction', className='mb-4', style={'textAlign': 'center'}), 
+    ],
+    width = 4
+)
+title2 = dbc.Col(
+    [
+    html.H2('Game Situation', className='mb-6'), 
+    ],
+    width = 4
+)
+title3 = dbc.Col(width = 4)
+titles = dbc.Row([title1,title2,title3])
+content = dbc.Row([column1, column2, column3])
+layout = dbc.Col([titles, content])
