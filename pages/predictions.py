@@ -95,8 +95,10 @@ col1 = dbc.Col(
             style={'marginTop': 10, 'marginBottom': 10},            
         )                     
 #         html.Div(id='slider-output-container'),
-    ],        
-    # setting column width                  
+    ],    
+    
+    # setting column width  
+    md = 4
 )
 
 col2 = dbc.Col(
