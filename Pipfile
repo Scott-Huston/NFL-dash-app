@@ -18,6 +18,9 @@ xgboost = "*"
 dash-daq = "*"
 matplotlib = "*"
 shap = "*"
+seaborn = "*"
+eli5 = "*"
+pdpbox = "*"
 
 [requires]
 python_version = "3.7"
