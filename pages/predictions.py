@@ -14,15 +14,17 @@ from joblib import load
 pipeline = load('assets/pipeline.joblib')
 
 column1 = dbc.Col(
-     [   
+     [
+        html.H2('Play Prediction', className='mb-4', style={'textAlign': 'center'}), 
         html.Div(id='prediction-content', className='mb-3', style={'textAlign': 'center', 'font-weight': 'bold'}),
         html.Div(id='prediction-image') 
     ],
+    
+    md = 4
 )
 
-column2 = dbc.Col(    
+col1 = dbc.Col(    
     [
-     
      # Shotgun checkbox
         dcc.Markdown('##### Is the offense in shotgun formation?'),
         dcc.Dropdown(
@@ -97,7 +99,7 @@ column2 = dbc.Col(
     # setting column width                  
 )
 
-column3 = dbc.Col(
+col2 = dbc.Col(
      [    # Quarter dropdown menu
         dcc.Markdown('##### Quarter'), 
         dcc.Dropdown(
@@ -282,17 +284,9 @@ def update_output(yardline_100):
         return f'{yardline_100} yards from the end zone'
     else:
         return f'{yardline_100} yard from the end zone'
-title1 = dbc.Col(
-    [
-    html.H2('Play Prediction', className='mb-4', style={'textAlign': 'center'}), 
-    ],
-)
-title2 = dbc.Col(
-    [
-    html.H2('Game Situation', className='mb-6'), 
-    ],
-)
-title3 = dbc.Col()
-titles = dbc.Row([title1,title2,title3])
-content = dbc.Row([column1, column2, column3])
-layout = dbc.Col([titles, content])
+
+column2_title = dbc.Row([html.H2('Game Situation', className='mb-6')], className = 'mb-3') 
+    
+column2_content = dbc.Row([col1, col2])
+column2 = dbc.Col([column2_title, column2_content])
+layout = dbc.Row([column1, column2])
