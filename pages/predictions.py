@@ -24,7 +24,7 @@ column2 = dbc.Col(
     [
      
      # Shotgun checkbox
-        dcc.Markdown('##### TestIs the offense in shotgun formation?'),
+        dcc.Markdown('##### Is the offense in shotgun formation?'),
         dcc.Dropdown(
             id='shotgun', 
             options= [
@@ -32,7 +32,7 @@ column2 = dbc.Col(
                 {'label': 'Yes', 'value': 1},
 #                 {'label': 'Unknown', 'value': pd.np.NaN},
             ],
-            className = 'mb-2',
+            className = 'mb-3',
             value=0
         ),
     # Down dropdown menu
@@ -45,7 +45,7 @@ column2 = dbc.Col(
                 {'label': '3rd down', 'value': 3},
                 {'label': '4th down', 'value': 4}
             ],
-            className = 'mb-2',
+            className = 'mb-3',
             value=1
         ), 
      # Yards to go field
@@ -57,7 +57,7 @@ column2 = dbc.Col(
             max = 'yardline_100',
             step = 1,
             value=10,
-            className = 'mb-2',
+            className = 'mb-3',
             debounce = True
         ),
      # Minutes remaining field
@@ -68,7 +68,7 @@ column2 = dbc.Col(
             min = 0,
             max = 15,
             value=14.5,
-            className = 'mb-2',
+            className = 'mb-3',
             debounce = True
         ),
                        
@@ -109,7 +109,7 @@ column3 = dbc.Col(
                 {'label': '4th quarter', 'value': 4},
                 {'label': 'Overtime', 'value': 5}
             ],
-            className = 'mb-2',
+            className = 'mb-3',
             value=1
         ),
       # Offensive score field
@@ -121,7 +121,7 @@ column3 = dbc.Col(
                 min = 0,
                 step = 1,
                 value=0,
-                className = 'mb-2',
+                className = 'mb-3',
                 debounce = True
             ),
          ],
@@ -135,7 +135,7 @@ column3 = dbc.Col(
             min = 0,
             step = 1,
             value=0,
-            className = 'mb-2',
+            className = 'mb-3',
             debounce = True
         ),
      # Offensive team timeouts remaining menu
@@ -148,7 +148,7 @@ column3 = dbc.Col(
                 {'label': '1 timeout', 'value': 1},
                 {'label': 'No timeouts', 'value': 0},
             ],
-            className = 'mb-2',
+            className = 'mb-3',
             value=3
         ),
       # Defensive team timeouts remaining menu
@@ -161,7 +161,7 @@ column3 = dbc.Col(
                 {'label': '1 timeout', 'value': 1},
                 {'label': 'No timeouts', 'value': 0},
             ],
-            className = 'mb-2',
+            className = 'mb-3',
             value=3
         )
         
@@ -189,7 +189,11 @@ column3 = dbc.Col(
 def predict(shotgun, down, ydstogo, qtr, minutes,
             yardline_100, posteam_score, defteam_score,
             posteam_timeouts_remaining, defteam_timeouts_remaining):
-    game_seconds_remaining = ((qtr-4)*15) + (minutes*60)
+    qtr_secs = 15*60
+    full_qtrs = 4-qtr
+    full_qtr_secs = full_qtrs*qtr_secs
+    minute_secs = minutes*60
+    game_seconds_remaining = full_qtr_secs+minute_secs
     posteam_score = int(posteam_score)
     defteam_score = int(defteam_score)
     score_differential = posteam_score-defteam_score
@@ -244,10 +248,16 @@ def predict(shotgun, down, ydstogo, qtr, minutes,
 def predict_image(shotgun, down, ydstogo, qtr, minutes,
             yardline_100, posteam_score, defteam_score,
             posteam_timeouts_remaining, defteam_timeouts_remaining):
-    game_seconds_remaining = ((qtr-4)*15) + (minutes*60)
+    qtr_secs = 15*60
+    full_qtrs = 4-qtr
+    full_qtr_secs = full_qtrs*qtr_secs
+    minute_secs = minutes*60
+    game_seconds_remaining = full_qtr_secs+minute_secs
+
     posteam_score = int(posteam_score)
     defteam_score = int(defteam_score)
     score_differential = posteam_score-defteam_score
+    print('score diff', score_differential)
     df = pd.DataFrame(
         columns=['shotgun', 'down', 'ydstogo', 'game_seconds_remaining', 'yardline_100', 
                  'score_differential', 'posteam_timeouts_remaining', 
