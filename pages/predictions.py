@@ -98,7 +98,7 @@ col1 = dbc.Col(
     ],    
     
     # setting column width  
-    md = 4
+    md = 6
 )
 
 col2 = dbc.Col(
