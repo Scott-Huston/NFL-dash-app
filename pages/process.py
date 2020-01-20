@@ -52,7 +52,7 @@ col2 = dbc.Col(
                 dcc.Markdown(
                     """
 
-                    ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROC AUC scores are a measure of how well models rank probabilities. This model achieves an ROC AUC score of 0.81, meaning that 81% of the graph on the right is under the curve. A perfect predictor would have an ROC AUC score of 1, because it would have a 100% true positive rate with a 0% false positive rate. This model correctly guessed the play on the test set 74% of the time. For comparison, a mean baseline (predicting pass every time) would have been correct 61% of the time.
+                    ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROC AUC scores are a measure of how well models rank probabilities. This model achieves an ROC AUC score of 0.81, meaning that 81% of the graph on the left is under the curve. A perfect predictor would have an ROC AUC score of 1, because it would have a 100% true positive rate with a 0% false positive rate. This model correctly guessed the play on the test set 74% of the time. For comparison, a mean baseline (predicting pass every time) would have been correct 61% of the time.
 
                     """,
                 className ='mt-5'
