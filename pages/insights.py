@@ -50,8 +50,8 @@ row2 = dbc.Col(
         dcc.Markdown(
             """
             
-            ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The red arrows indicate parts of the situation that led the model to be more likely to predict a pass, and information with blue arrows made the model more likely to predict a run. The length of the arrows indicates the relative importance of the information. As we would intuitively expect, being on the 1-yard line made a run more likely, while being down late in the game with only one timeout remaining made a pass more likely.
-            ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The feature that had the biggest impact on the model predicting an 82% likelihood of a pass play being called was the fact that the team was in a shotgun formation. They didn't have to call a play from that formation though. If we re-enter the same situation into the model but without the Seahawks in a shotgun formation the model gives a 58% chance of a run play being called.
+            ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The red arrows indicate parts of the situation that led the model to be more likely to predict a run, and information with blue arrows made the model more likely to predict a pass. The length of the arrows indicates the relative importance of the information. As we would intuitively expect, being on the 1-yard line made a run more likely, while being down late in the game with only one timeout remaining made a pass more likely.
+            ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The feature that had the biggest impact on the model predicting an 82% likelihood of a pass play being called was the fact that the team was in a shotgun formation. They didn't have to call a play from that formation though. If we re-enter the same situation into the model but without the Seahawks in a shotgun formation, the model gives a 58% chance of a run play being called.
             
             """,
             className = 'mt-3',
